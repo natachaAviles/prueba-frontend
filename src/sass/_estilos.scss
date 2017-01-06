@@ -1,0 +1,65 @@
+.map{
+	background-image:url('../../dist/images/background.jpg');
+
+	.nav-wrapper{
+		background-color:$nav-wrapper;
+	}
+		.infoicon{
+			color:$infoicon;
+			margin-right:10vh;
+		}
+
+		.brandlogo{
+			width:30vh;
+			margin-top:2vh;
+			margin-left:5vh;
+	}
+		.hamburgericon{
+			color:$hamburguercolor;
+	}
+}
+
+.seleccion{
+	background-color:$selectcontainer;
+	margin-top:6vh;
+	padding:3vh;
+	
+	select{
+		border-color:$borderselect;
+		height:5vh;
+	}
+		.title{
+		font-weight:bold;
+		}
+}
+.vehiculos{
+	background-color:$vehiculoscontainer;
+	margin-top:3vh;
+	padding:3vh;
+
+	.title{
+		font-weight:bold;
+		margin:0%;
+	}
+	.imgvehiculo{
+		width:60%;
+
+	}
+	.cartype{
+		@include cartype;
+	}
+	.info{
+		@include subtitleinfo;
+	}
+	.valor{
+		color:$valorcolor;
+	}
+
+	[type=radio]:checked+label, [type=radio]:not(:checked)+label{
+		margin-top:2vh;
+	}
+}
+.btn{
+
+	@include btn;
+}

@@ -1,0 +1,21 @@
+@mixin btn{
+	background-color:$btn;
+	margin-top:1vh;
+	width:100%;
+
+	&:hover{
+		background-color:$hoverbtn;
+	}
+}
+
+@mixin cartype{
+	margin:0%;
+	font-weight:bold;
+	font-size:0.9em;
+	margin-top:1vh;
+}
+@mixin subtitleinfo{
+	font-family:$fontinfo;
+	margin:0%;
+	font-size:0.8em;
+}
