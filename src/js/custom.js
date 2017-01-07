@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	// TODO code
 	ciudades = get_regiones();
@@ -5,12 +6,25 @@ $(document).ready(function(){
 	destino = $('#destino');
 	$.each(ciudades, function( index, value ) {
 
-        origen.append($("<option />").val(index).text(ciudades[index].name));
-    	destino.append($("<option />").val(index).text(ciudades[index].name));
+		origen.append($("<option />").val(index).text(ciudades[index].name));
+		destino.append($("<option />").val(index).text(ciudades[index].name));
 		//console.log( index + ": " + ciudades[index].name );
 	});
+
+
 	$('#buscar').on('click', function(){ 
-		calcularDistancia();
+
+		if (((origen).val() === null) && ((destino).val() === null)){
+			alert('debe elegir origen y destino');
+			return false;
+		}else {
+
+			$('.vehiculos').css('display','block');
+
+			calcularDistancia();
+		}
+
+
 	});
 	
 });
@@ -27,24 +41,24 @@ function calcularDistancia(){
 
 		var service = new google.maps.DistanceMatrixService();
 		service.getDistanceMatrix(
-		  {
-		    origins: [origin1],
-		    destinations: [destinationB],
-		    travelMode: google.maps.TravelMode.DRIVING,
-		  }, callback);
+		{
+			origins: [origin1],
+			destinations: [destinationB],
+			travelMode: google.maps.TravelMode.DRIVING,
+		}, callback);
 		//TODO cargar vehiculos.
 		
-}
+	}
 
-function callback(response, status) {
-	if (status == google.maps.DistanceMatrixStatus.OK) {
-	    var origins = response.originAddresses;
-	    var destinations = response.destinationAddresses;
+	function callback(response, status) {
+		if (status == google.maps.DistanceMatrixStatus.OK) {
+			var origins = response.originAddresses;
+			var destinations = response.destinationAddresses;
 
-	    for (var i = 0; i < origins.length; i++) {
-	      var results = response.rows[i].elements;
-	      for (var j = 0; j < results.length; j++) {
-	        var element = results[j];
+			for (var i = 0; i < origins.length; i++) {
+				var results = response.rows[i].elements;
+				for (var j = 0; j < results.length; j++) {
+					var element = results[j];
 	        /*var distance = element.distance.text;
 	        var duration = element.duration.text;
 	        var from = origins[i];
@@ -53,13 +67,38 @@ function callback(response, status) {
 	        console.log("en KM "+ (element.distance.value/1000));
 	        console.log("KM/Liros: "+11);
 	        console.log("resultado: "+(element.distance.value/1000 /11));
-	        console.log("multiplicar por valor litro y dividir por cantidad pasajeros, verificar que no sean 0 pasajeros");
-	      }
+	        
 	    }
-	  }else{
-	  	console.log("error :" + status);
-	  }
 	}
+	
+		}else{
+
+		console.log("error :" + status);	
+		}	
+
+		function Consumoauto(){
+			Modautos = get_tipoauto();
+
+
+			$.each(Modautos,function(index){
+				kml= Modautos[index].kml;
+				pasajeros = $('#pasajeros').val();
+				distance = element.distance.value;
+				litros = distance/1000/kml;
+				costo = litros * 613;
+				costoporpersona = costo/pasajeros;
+				console.log ("litros aproximados para viaje vehiculo: "+ Modautos[index].name+" = "+litros+" = "+costo);
+				console.log ("costo por persona:" + costoporpersona);
+			});
+		}
+
+		$('#compartir').on('click', function(){ 
+
+				Consumoauto();
+
+			});	
+
+}
 }
 /*
 
